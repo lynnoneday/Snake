@@ -1,0 +1,50 @@
+//The goal of this assignment is to make an animated program in which a piece of wall moves across a 3 by 3 SnakeUserInterface. The piece of wall starts out on (0,0) and moves right a square at a time. When it reaches the end of a row, the piece of wall will move to the first square of the next row. When the piece off wall reaches the end of the last row, it is transferred back to the initial (0,0) position.
+
+//Additionally, the program should have the following features:
+
+//The animation should slow down by 0.5 frames per second when the user presses the left arrow key.
+//The animation should speed up by 0.5 frames per second when the user presses the right arrow key.
+//The piece of wall should change into a green sphere (a piece of the snake) when the user presses the letter g. Pressing g again should revert this change.
+//In order to place a piece of wall on the screen, use ui.place(x, y, ui.WALL), in order to place a piece of the snake, use ui.place(x, y, ui.SNAKE), and in order to empty a part of the screen, use ui.place(x, y, ui.EMPTY).
+
+import java.util.Scanner;
+
+import ui.Event;
+import ui.SnakeUserInterface;
+import ui.UserInterfaceFactory;
+
+public class Animation {
+	
+	SnakeUserInterface ui;
+	
+	Animation(){
+		ui = UserInterfaceFactory.getSnakeUI(3, 3);
+	}
+	
+	void processEvent() {
+		for(int i = 0; i < 3; i++) {
+			for(int j = 0; j < 3; j++) {
+					ui.place(i, j, ui.WALL);
+					ui.showChanges();
+				}
+			}
+		}
+		
+	
+	void start() {
+		double framesPerSecond = 1.0;
+		ui.setFramesPerSecond(framesPerSecond);
+		Event event = ui.getEvent();
+		
+		if(event.name.equals("alarm")) {
+			processEvent();
+		}
+	}
+	
+			
+	
+	public static void main(String[] args) {
+		new Animation().start();
+	}
+
+}
